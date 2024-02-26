@@ -1,5 +1,6 @@
 1. Need to add couple of x100 Messages with a Systems trace audit number: For example stan2
 
+
 2. Need to add couple of x110 messages with a systems trace audit number: For example stan2 (should be same as x100 messages)
 
 3. Need to make x100 messages to to TxConfirmed status by invoking confirm chaincode manually
