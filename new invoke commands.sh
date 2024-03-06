@@ -34,3 +34,18 @@ export CORE_PEER_ADDRESS=localhost:7051
 
 peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem" -C channel1 -n PYMTUtilsCC -c '{"function":"GetTxByRange","Args":["",""]}'
 
+
+#To invoke confirm chaincode to move x100 status to confirmed.
+
+#AOD
+
+export PATH=${PWD}/../bin:$PATH 
+export FABRIC_CFG_PATH=$PWD/../../config/ 
+export CORE_PEER_TLS_ENABLED=true 
+export CORE_PEER_LOCALMSPID="AODMSP" 
+export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/../organizations/peerOrganizations/AOD.hlfcards.com/peers/peer0.AOD.hlfcards.com/tls/ca.crt 
+export CORE_PEER_MSPCONFIGPATH=${PWD}/../organizations/peerOrganizations/AOD.hlfcards.com/users/Admin@AOD.hlfcards.com/msp 
+export CORE_PEER_ADDRESS=localhost:19051 
+
+
+peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "${PWD}/../organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem" -C channel1 -n ConfirmSettlementTxCC  --peerAddresses localhost:15051 --tlsRootCertFiles "${PWD}/../organizations/peerOrganizations/ACD.hlfcards.com/peers/peer0.ACD.hlfcards.com/tls/ca.crt" --peerAddresses localhost:11051 --tlsRootCertFiles "${PWD}/../organizations/peerOrganizations/AAD.hlfcards.com/peers/peer0.AAD.hlfcards.com/tls/ca.crt" -c '{"function":"confirmSettlementTx","Args":["x100","MID001","CID001","LR001"]}'
